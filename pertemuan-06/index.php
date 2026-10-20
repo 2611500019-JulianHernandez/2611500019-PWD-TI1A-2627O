@@ -9,16 +9,10 @@
 </head>
 
 <body>
-<?php
+ <?php
 // Pengujian awal eksekusi PHP.
-echo "Keluaran menggunakan echo.";
-
-/*
-Komentar beberapa baris.
-Komentar ini tidak ditampilkan pada halaman.
-*/
+echo "PHP berhasil dijalankan.";
 ?>
-
     <header>
         <h1>Profil Mahasiswa</h1>
         <button class="nav-toggle" id="navToggle" type="button" aria-label="Buka navigasi" aria-controls="navMenu"
