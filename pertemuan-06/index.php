@@ -5,10 +5,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profil Mahasiswa</title>
-    <link rel="stylesheet" href="style.css" /> ;
+    <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
+<?php
+// Pengujian awal eksekusi PHP.
+echo "Keluaran menggunakan echo.";
+
+/*
+Komentar beberapa baris.
+Komentar ini tidak ditampilkan pada halaman.
+*/
+?>
 
     <header>
         <h1>Profil Mahasiswa</h1>
