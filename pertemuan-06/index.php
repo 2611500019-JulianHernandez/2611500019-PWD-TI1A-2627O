@@ -9,6 +9,9 @@ $semester = 1;
 $ipk = 3.75;
 $statusAktif = true;
 $catatanTambahan = null;
+
+const NAMA_MATA_KULIAH = "Pemrograman Web Dasar";
+const PROFIL_GITHUB = "2611500019-JulianHernandez";
 ?>
 
 <!DOCTYPE html>
@@ -22,8 +25,6 @@ $catatanTambahan = null;
 </head>
 
 <body>
-
-
     <header>
         <h1>Profil Mahasiswa</h1>
         <button class="nav-toggle" id="navToggle" type="button" aria-label="Buka navigasi" aria-controls="navMenu"
