@@ -10,9 +10,14 @@
 
 <body>
  <?php
-// Pengujian awal eksekusi PHP.
-echo "PHP berhasil dijalankan.";
+// Komentar satu baris.
+print "Keluaran menggunakan print.";
+/*
+Komentar beberapa baris.
+Komentar ini tidak ditampilkan pada halaman.
+*/
 ?>
+
     <header>
         <h1>Profil Mahasiswa</h1>
         <button class="nav-toggle" id="navToggle" type="button" aria-label="Buka navigasi" aria-controls="navMenu"
