@@ -1,3 +1,16 @@
+<?php
+// P6: PHP dasar dan pemrograman sisi peladen
+// Bagian 1: Variabel dan konstanta
+$nim = "2611500019";
+$namaMahasiswa = "Julian Hernandez";
+$programStudi = "TI";
+$tahunAkademik = "2026/2027";
+$semester = 1;
+$ipk = 3.75;
+$statusAktif = true;
+$catatanTambahan = null;
+?>
+
 <!DOCTYPE html>
 <html lang="id">
 
@@ -9,10 +22,7 @@
 </head>
 
 <body>
-<p>Konten HTML statis.</p>
-<?php
-echo "<p>Konten yang dihasilkan oleh PHP.</p>";
-?>
+
 
     <header>
         <h1>Profil Mahasiswa</h1>
