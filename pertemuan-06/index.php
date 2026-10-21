@@ -14,6 +14,10 @@ const NAMA_MATA_KULIAH = "Pemrograman Web Dasar";
 const PROFIL_GITHUB = "2611500019-JulianHernandez";
 ?>
 
+// E.1 Operator Aritmetika dan Penugasan
+$batasSemester = 8;
+$sisaSemester = $batasSemester - $semester;
+
 <!DOCTYPE html>
 <html lang="id">
 
@@ -57,7 +61,7 @@ const PROFIL_GITHUB = "2611500019-JulianHernandez";
 
             <article>
                 <h3>Profil Singkat</h3>
-                <p>Saya mahasiswa Program Studi Teknik Informatika.</p>
+                <p>Sisa semester hingga batas: <?php echo $sisaSemester; ?></p>
 
                 <h3>Target Belajar</h3>
                 <ol>
@@ -71,11 +75,9 @@ const PROFIL_GITHUB = "2611500019-JulianHernandez";
         <section id="contact">
             <h2>Kontak</h2>
             <p>
-                Kunjungi
-                <a href="https://github.com/2611500019-JulianHernandez">
-                    profil GitHub saya
-                </a>.
-            </p>
+  Kunjungi 
+  <a target="_blank" href="https://github.com/<?= PROFIL_GITHUB ?>">profil GitHub saya</a>.
+</p>
             <form id="contactForm" action="index.html" method="get">
                 <div class="form-group">
                     <label for="nama">Nama Lengkap</label><br>
