@@ -12,11 +12,14 @@ $catatanTambahan = null;
 
 const NAMA_MATA_KULIAH = "Pemrograman Web Dasar";
 const PROFIL_GITHUB = "2611500019-JulianHernandez";
-?>
 
 // E.1 Operator Aritmetika dan Penugasan
 $batasSemester = 8;
 $sisaSemester = $batasSemester - $semester;
+$semesterValid = $semester >= 1 && $semester <= $batasSemester;
+$statusSemester = ($semesterValid && $statusAktif) ? "Sesuai rentang" : "Perlu diperiksa";
+
+?>
 
 <!DOCTYPE html>
 <html lang="id">
@@ -62,6 +65,9 @@ $sisaSemester = $batasSemester - $semester;
             <article>
                 <h3>Profil Singkat</h3>
                 <p>Sisa semester hingga batas: <?php echo $sisaSemester; ?></p>
+                <p>Pemeriksaan rentang semester: <?php echo $statusSemester; ?></p>
+                <p>Saya mahasiswa Program Studi Teknik Informatika.</p>
+
 
                 <h3>Target Belajar</h3>
                 <ol>
