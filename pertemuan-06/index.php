@@ -92,6 +92,9 @@ $fokusProgramStudi = "Belum ditentukan";
                 <p>Semester: <?php echo $semester . " (" . $keteranganSemester . ")"; ?></p>
                 <p>Sisa semester hingga batas: <?php echo $sisaSemester; ?></p>
                 <p>Pemeriksaan rentang semester: <?php echo $statusSemester; ?></p>
+                <p>IPK: <?php echo number_format($ipk, 2, ',', '.'); ?></p>
+                <p>Catatan tambahan: <?php echo $catatanTambahan === null ? "Belum ada" : $catatanTambahan;
+                ?></p>
                 <p>Saya mahasiswa Program Studi Teknik Informatika.</p>
 
 
@@ -141,7 +144,7 @@ $nomorSemester++; // operator penugasan
   Kunjungi 
   <a target="_blank" href="https://github.com/<?= PROFIL_GITHUB ?>">profil GitHub saya</a>.
 </p>
-            <form id="contactForm" action="index.html" method="get">
+            <form id="contactForm" action="index.php" method="get" novalidate>
                 <div class="form-group">
                     <label for="nama">Nama Lengkap</label><br>
                     <input class="input-form" type="text" id="nama" name="nama" placeholder="Masukkan nama lengkap"
@@ -194,7 +197,7 @@ $nomorSemester++; // operator penugasan
         </section>
     </main>
     <footer>
-        <p>&copy; 2026 Julian Hernandez - NIM 2611500019</p>
+       <p>&copy; <?= date("Y") ?> <?php echo $namaMahasiswa; ?> [<?= $nim ?>]</p>
     </footer>
     <script src="script.js"></script>
 </body>
