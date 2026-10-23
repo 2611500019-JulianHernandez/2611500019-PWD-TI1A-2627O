@@ -9,23 +9,37 @@ $semester = 1;
 $ipk = 3.75;
 $statusAktif = true;
 $catatanTambahan = null;
-
 const NAMA_MATA_KULIAH = "Pemrograman Web Dasar";
 const PROFIL_GITHUB = "2611500019-JulianHernandez";
 
-// E.1 Operator Aritmetika dan Penugasan
+// Bagian 2 : Operator
 $batasSemester = 8;
 $sisaSemester = $batasSemester - $semester;
 $semesterValid = $semester >= 1 && $semester <= $batasSemester;
 $statusSemester = ($semesterValid && $statusAktif) ? "Sesuai rentang" : "Perlu diperiksa";
 
-// F.1 Percabangan if-elseif-else
+// Bagian 3 : Percabangan if-elseif-else
 if ($semester < 3) {
     $keteranganSemester = "Semester awal";
 } elseif ($semester <= 6) {
     $keteranganSemester = "Semester menengah";
 } else {
     $keteranganSemester = "Semester akhir";
+}
+
+$namaProdi = ($programStudi == "SI") ? "Sistem Informasi" : (($programStudi == "TI") ? "Teknik
+Informatika" : "Lainnya");
+
+// Bagian 4: Percabangan switch-case-default
+switch ($programStudi) {
+case "SI":
+    $fokusProgramStudi = "Sistem informasi dan proses bisnis";
+break;
+case "TI":
+$fokusProgramStudi = "Komputasi dan pengembangan perangkat lunak";
+break;
+default:
+$fokusProgramStudi = "Belum ditentukan";
 }
 ?>
 
@@ -72,18 +86,52 @@ if ($semester < 3) {
 
             <article>
                 <h3>Profil Singkat</h3>
+                <p>Program Studi: <?php echo $namaProdi . " (" . $programStudi . ")"; ?></p>
+                <p>Fokus program studi: <?php echo $fokusProgramStudi; ?></p>
+                <p>Status mahasiswa: <?php echo $statusAktif ? "Aktif" : "Tidak aktif"; ?></p>
+                <p>Semester: <?php echo $semester . " (" . $keteranganSemester . ")"; ?></p>
                 <p>Sisa semester hingga batas: <?php echo $sisaSemester; ?></p>
                 <p>Pemeriksaan rentang semester: <?php echo $statusSemester; ?></p>
-                <p>Semester: <?php echo $semester . " (" . $keteranganSemester . ")"; ?></p>
                 <p>Saya mahasiswa Program Studi Teknik Informatika.</p>
 
 
-                <h3>Target Belajar</h3>
+                <h3>Target Belajar (Pengulangan for)</h3>
                 <ol>
-                    <li>Memahami struktur HTML5.</li>
-                    <li>Menyusun halaman web semantik.</li>
-                    <li>Memvalidasi dokumen HTML.</li>
+                    <?php
+// Perulangan for tanpa array; materi larik dibahas pada P9.
+for ($i = 1; $i <= 5; $i++) {
+echo "<li>Target belajar ke-" . $i . ": ";
+switch ($i) {
+case 1:
+echo "Memahami sintaks dasar PHP.";
+break;
+case 2:
+echo "Menggunakan variabel dan konstanta.";
+break;
+case 3:
+echo "Menerapkan operator dan percabangan.";
+break;
+case 4:
+echo "Menggunakan perulangan for dan while.";
+break;
+default:
+echo "Belum dipetakan";
+break;
+}
+echo "</li>";
+}
+?>
                 </ol>
+                <h3>Semester (Perulangan while):</h3>
+<ol>
+<?php
+$nomorSemester = 1;
+while ($nomorSemester <= 3) {
+echo "<li>Semester " . $nomorSemester . "</li>";
+$nomorSemester++; // operator penugasan
+}
+?>
+</ol>
             </article>
         </section>
 
