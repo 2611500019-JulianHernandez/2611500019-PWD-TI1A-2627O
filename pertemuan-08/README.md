@@ -60,7 +60,7 @@ pertemuan-08/
 
 1. Pasang [Laragon](https://laragon.org/) (atau XAMPP) dan jalankan Apache.
 2. Letakkan folder proyek di `C:\laragon\www\`.
-3. Buka `http://localhost/<path-ke-folder>/pertemuan-08/index.php` di browser.
+3. Buka `http://localhost:8080/PWD/2627o/ti1a/2611500019-PWD-TI1A-2627O/pertemuan-08/index.php di browser.
 
 PHP 7.4 atau lebih baru dibutuhkan (kode memakai operator `??` dan sintaks `<?= ?>`).
 
