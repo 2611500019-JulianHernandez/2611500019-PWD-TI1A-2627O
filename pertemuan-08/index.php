@@ -190,7 +190,6 @@ switch ($programStudi) {
 
 <section id="rencana-kegiatan" class="contact">
 			<h2>Rencana Kegiatan Mahasiswa</h2>
-
 			<p>Tambahkan rencana kegiatan yang akan dilaksanakan.</p>
 
 			<form action="index.php#rencana-kegiatan" method="post">
@@ -227,9 +226,11 @@ switch ($programStudi) {
 					<textarea class="input-form" id="deskripsi_kegiatan" name="deskripsi_kegiatan"
 						maxlength="300" placeholder="Tulis deskripsi kegiatan" required></textarea>
 				</div>
-
-				<button type="submit" name="kirim_rencana">Kirim</button>
-				<button type="reset">Batal</button>
+				
+				<div class="form-group">
+    <button type="submit" name="kirim_rencana">Kirim</button>
+    <button type="reset">Batal</button>
+</div>
 			</form>
 
 			<?php $rencana = $_SESSION["rencana"] ?? null; ?>
