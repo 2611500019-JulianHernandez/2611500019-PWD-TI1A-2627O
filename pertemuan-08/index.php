@@ -1,6 +1,19 @@
 <?php
 session_start();
 
+// --- INI BUAT FORM RENCANA KEGIATAN (NO 2 & 3) ---
+    if (isset($_POST['kirim_rencana'])) {
+    $_SESSION['rencana'] = [
+        'nama' => $_POST['nama_kegiatan'] ?? '',
+        'kategori' => $_POST['kategori_kegiatan'] ?? '',
+        'tanggal' => $_POST['tanggal_pelaksanaan'] ?? '',
+        'lokasi' => $_POST['lokasi_kegiatan'] ?? '',
+        'deskripsi' => $_POST['deskripsi_kegiatan'] ?? ''
+    ];
+    header("Location: " . $_SERVER['PHP_SELF'] . "#rencana-kegiatan");
+    exit();
+}
+
 // P7: Memproses data formulir dan menyimpannya ke dalam session.
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 	$nama = trim((string) ($_POST["nama"] ?? ""));
@@ -106,7 +119,7 @@ switch ($programStudi) {
 			<ul id="navMenu">
 				<li><a href="#home">Beranda</a></li>
 				<li><a href="#about">Tentang</a></li>
-				<li><a href="#rencana">Rencana Kegiatan</a></li>
+				<li><a href="#plan">Rencana Kegiatan</a></li>
 				<li><a href="#contact">Kontak</a></li>
 			</ul>
 		</nav>
@@ -174,52 +187,40 @@ switch ($programStudi) {
 				</ol>
 			</article>
 		
-<!-- Section Rencana Kegiatan Mahasiswa - FINAL -->
-<section id="rencana-kegiatan" class="py-5 bg-light">
-  <div class="container">
-    <div class="row mb-4">
-      <div class="col-12">
-        <h2 class="fw-bold border-bottom pb-2">Rencana Kegiatan Mahasiswa</h2>
-        <p class="text-muted">Tambahkan rencana kegiatan yang akan dilaksanakan</p>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-8">
-        <form action="" method="POST">
-          <div class="mb-3">
-            <label for="nama_kegiatan" class="form-label">Nama Kegiatan</label>
-            <input type="text" class="form-control" id="nama_kegiatan" name="nama_kegiatan" placeholder="Contoh: Seminar Teknologi" required>
-          </div>
-          <div class="mb-3">
-            <label for="kategori" class="form-label">Kategori Kegiatan</label>
-            <select class="form-select" id="kategori" name="kategori" required>
-              <option value="" disabled selected>Pilih Kategori</option>
-              <option value="Akademik">Akademik</option>
-              <option value="Organisasi">Organisasi</option>
-              <option value="Lomba">Lomba</option>
-              <option value="Pengabdian">Pengabdian</option>
-            </select>
-          </div>
-          <div class="mb-3">
-            <label for="tanggal" class="form-label">Tanggal Pelaksanaan</label>
-            <input type="date" class="form-control" id="tanggal" name="tanggal" required>
-          </div>
-          <div class="mb-3">
-            <label for="lokasi" class="form-label">Lokasi Kegiatan</label>
-            <input type="text" class="form-control" id="lokasi" name="lokasi" placeholder="Contoh: Aula Polman Babel" required>
-          </div>
-          <div class="mb-3">
-            <label for="deskripsi" class="form-label">Deskripsi Kegiatan</label>
-            <textarea class="form-control" id="deskripsi" name="deskripsi" rows="4" placeholder="Jelaskan detail kegiatan..." required></textarea>
-          </div>
-          <div class="d-flex gap-2">
-            <button type="reset" class="btn btn-secondary">Batal</button>
-            <button type="submit" class="btn btn-primary">Kirim</button>
-          </div>
-        </form>
-      </div>
-    </div>
+<section id="rencana-kegiatan" class="container" style="margin-top:30px;">
+  <h2 style="border-bottom:2px solid #333; padding-bottom:10px;">Rencana Kegiatan Mahasiswa</h2>
+  <p>Tambahkan rencana kegiatan yang akan dilaksanakan</p>
+
+  <?php $rencana = $_SESSION['rencana'] ?? null; if($rencana): ?>
+  <div style="background:#d4edda; border:1px solid #c3e6cb; padding:15px; margin:15px 0; border-radius:5px;">
+    <h4 style="margin:0 0 10px 0;">Data Tersimpan:</h4>
+    <p><b>Nama Kegiatan:</b> <?= htmlspecialchars($rencana['nama']) ?></p>
+    <p><b>Kategori:</b> <?= htmlspecialchars($rencana['kategori']) ?></p>
+    <p><b>Tanggal:</b> <?= htmlspecialchars($rencana['tanggal']) ?></p>
+    <p><b>Lokasi:</b> <?= htmlspecialchars($rencana['lokasi']) ?></p>
+    <p><b>Deskripsi:</b> <?= nl2br(htmlspecialchars($rencana['deskripsi'])) ?></p>
   </div>
+  <?php endif; ?>
+
+  <form method="POST" action="#rencana-kegiatan">
+    <div><label>Nama Kegiatan</label><input type="text" name="nama_kegiatan" required style="width:100%"></div>
+    <div><label>Kategori Kegiatan</label>
+      <select name="kategori_kegiatan" required style="width:100%">
+        <option value="" disabled selected>Pilih Kategori</option>
+        <option value="Akademik">Akademik</option>
+        <option value="Organisasi">Organisasi</option>
+        <option value="Lomba">Lomba</option>
+        <option value="Pengabdian">Pengabdian</option>
+      </select>
+    </div>
+    <div><label>Tanggal Pelaksanaan</label><input type="date" name="tanggal_pelaksanaan" required style="width:100%"></div>
+    <div><label>Lokasi Kegiatan</label><input type="text" name="lokasi_kegiatan" required style="width:100%"></div>
+    <div><label>Deskripsi Kegiatan</label><textarea name="deskripsi_kegiatan" rows="4" required style="width:100%"></textarea></div>
+    <div style="margin-top:10px;">
+      <button type="reset">Batal</button>
+      <button type="submit" name="kirim_rencana">Kirim</button>
+    </div>
+  </form>
 </section>
 
 		<section id="contact">
