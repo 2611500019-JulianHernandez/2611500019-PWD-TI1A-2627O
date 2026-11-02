@@ -173,7 +173,54 @@ switch ($programStudi) {
 					?>
 				</ol>
 			</article>
-		</section>
+		
+<!-- Section Rencana Kegiatan Mahasiswa - FINAL -->
+<section id="rencana-kegiatan" class="py-5 bg-light">
+  <div class="container">
+    <div class="row mb-4">
+      <div class="col-12">
+        <h2 class="fw-bold border-bottom pb-2">Rencana Kegiatan Mahasiswa</h2>
+        <p class="text-muted">Tambahkan rencana kegiatan yang akan dilaksanakan</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-8">
+        <form action="" method="POST">
+          <div class="mb-3">
+            <label for="nama_kegiatan" class="form-label">Nama Kegiatan</label>
+            <input type="text" class="form-control" id="nama_kegiatan" name="nama_kegiatan" placeholder="Contoh: Seminar Teknologi" required>
+          </div>
+          <div class="mb-3">
+            <label for="kategori" class="form-label">Kategori Kegiatan</label>
+            <select class="form-select" id="kategori" name="kategori" required>
+              <option value="" disabled selected>Pilih Kategori</option>
+              <option value="Akademik">Akademik</option>
+              <option value="Organisasi">Organisasi</option>
+              <option value="Lomba">Lomba</option>
+              <option value="Pengabdian">Pengabdian</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="tanggal" class="form-label">Tanggal Pelaksanaan</label>
+            <input type="date" class="form-control" id="tanggal" name="tanggal" required>
+          </div>
+          <div class="mb-3">
+            <label for="lokasi" class="form-label">Lokasi Kegiatan</label>
+            <input type="text" class="form-control" id="lokasi" name="lokasi" placeholder="Contoh: Aula Polman Babel" required>
+          </div>
+          <div class="mb-3">
+            <label for="deskripsi" class="form-label">Deskripsi Kegiatan</label>
+            <textarea class="form-control" id="deskripsi" name="deskripsi" rows="4" placeholder="Jelaskan detail kegiatan..." required></textarea>
+          </div>
+          <div class="d-flex gap-2">
+            <button type="reset" class="btn btn-secondary">Batal</button>
+            <button type="submit" class="btn btn-primary">Kirim</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
 
 		<section id="contact">
 			<h2>Kontak</h2>
