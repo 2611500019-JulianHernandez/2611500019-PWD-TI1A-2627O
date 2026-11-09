@@ -1,6 +1,17 @@
 <?php
 session_start();
 
+function berisihkan ($teks) {
+	return
+	htmlspecialchars($teks ?? "", ENT_QUOTES, "UTF-8");
+}
+
+echo "<h1>hai disana</h1>";
+echo "<script>alert('hai disana');</script>";
+echo berisihkan("<p>hai disana</p>");
+echo berisihkan ("<script>alert('hai disana');</script>");
+
+
 // --- INI BUAT FORM RENCANA KEGIATAN (NO 2 & 3) ---
     if (isset($_POST['kirim_rencana'])) {
     $_SESSION['rencana'] = [
