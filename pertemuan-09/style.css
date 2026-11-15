@@ -143,7 +143,8 @@ section {
   border: 1px solid #e6e6e6;
 }
 
-/* Bagian Kontak */
+/* Bagian Rencana Kegiatan dan Kontak (gaya kotak yang sama) */
+#rencana-kegiatan,
 #contact {
   background-color: #f8fafc;
   border: 1px solid #cbd5e1;
@@ -151,6 +152,7 @@ section {
   margin: 0;
 }
 
+#rencana-kegiatan h2,
 #contact h2 {
   color: #003366;
   border-bottom: 2px solid #003366;
@@ -163,6 +165,7 @@ section {
   margin: 12px 0;
 }
 
+#rencana-kegiatan label,
 #contact label {
   color: #1f2937;
   font-weight: bold;
@@ -180,11 +183,13 @@ section {
   border: 1px solid #94a3b8;
 }
 
+#rencana-kegiatan textarea,
 #contact textarea {
   min-height: 80px;
   resize: vertical;
 }
 
+#rencana-kegiatan button,
 #contact button {
   background-color: #003366;
   color: #ffffff;
@@ -193,6 +198,26 @@ section {
   margin: 8px 6px 0 0;
   border: 1px solid #003366;
   cursor: pointer;
+}
+
+/* Kotak hasil data yang dikirim */
+.submission-result {
+  background-color: #ffffff;
+  border: 1px solid #cbd5e1;
+  padding: 16px;
+  margin-top: 16px;
+}
+
+.submission-result h3 {
+  color: #1f4e78;
+  margin-top: 0;
+}
+
+.submission-result p {
+  margin: 6px 0;
+  padding: 6px 0;
+  border-bottom: 1px solid #e6e6e6;
+  line-height: 1.5;
 }
 
 /* Footer */
@@ -234,6 +259,7 @@ footer p {
     grid-template-columns: 1fr 1fr;
   }
 
+  #rencana-kegiatan,
   #contact {
     grid-column: 1 / -1;
   }
