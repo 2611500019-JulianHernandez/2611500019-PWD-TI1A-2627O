@@ -1,28 +1,22 @@
 <?php
 session_start();
 
-function berisihkan ($teks) {
-	return
-	htmlspecialchars($teks ?? "", ENT_QUOTES, "UTF-8");
+function bersihkan($teks) {
+	return htmlspecialchars($teks ?? "", ENT_QUOTES, "UTF-8");
 }
 
-echo "<h1>hai disana</h1>";
-echo "<script>alert('hai disana');</script>";
-echo berisihkan("<p>hai disana</p>");
-echo berisihkan ("<script>alert('hai disana');</script>");
+// Rencana kegiatan: menyimpan data formulir ke dalam satu session array asosiatif.
+if (isset($_POST["kirim_rencana"])) {
+	$_SESSION["rencana"] = [
+		"nama" => $_POST["nama_kegiatan"] ?? "",
+		"kategori" => $_POST["kategori_kegiatan"] ?? "",
+		"tanggal" => $_POST["tanggal_pelaksanaan"] ?? "",
+		"lokasi" => $_POST["lokasi_kegiatan"] ?? "",
+		"deskripsi" => $_POST["deskripsi_kegiatan"] ?? ""
+	];
 
-
-// --- INI BUAT FORM RENCANA KEGIATAN (NO 2 & 3) ---
-    if (isset($_POST['kirim_rencana'])) {
-    $_SESSION['rencana'] = [
-        'nama' => $_POST['nama_kegiatan'] ?? '',
-        'kategori' => $_POST['kategori_kegiatan'] ?? '',
-        'tanggal' => $_POST['tanggal_pelaksanaan'] ?? '',
-        'lokasi' => $_POST['lokasi_kegiatan'] ?? '',
-        'deskripsi' => $_POST['deskripsi_kegiatan'] ?? ''
-    ];
-    header("Location: " . $_SERVER['PHP_SELF'] . "#rencana-kegiatan");
-    exit();
+	header("Location: index.php#rencana-kegiatan");
+	exit;
 }
 
 // P7: Memproses data formulir dan menyimpannya ke dalam session.
@@ -35,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 	$minat = $_POST["minat"] ?? [];
 	$prodi = trim((string) ($_POST["prodi"] ?? ""));
 	$pesan = trim((string) ($_POST["pesan"] ?? ""));
-
+	
 	// Checkbox dapat mengirimkan lebih dari satu nilai.
 	if (!is_array($minat)) {
 		$minat = [];
@@ -199,19 +193,27 @@ switch ($programStudi) {
 			</article>
 		</section>
 
-<section id="rencana-kegiatan" class="contact">
+		<section id="rencana-kegiatan" class="contact">
 			<h2>Rencana Kegiatan Mahasiswa</h2>
 			<p>Tambahkan rencana kegiatan yang akan dilaksanakan.</p>
 
 			<form action="index.php#rencana-kegiatan" method="post">
 				<div class="form-group">
 					<label for="nama_kegiatan">Nama Kegiatan</label><br />
-					<input class="input-form" type="text" id="nama_kegiatan" name="nama_kegiatan"
-						placeholder="Masukkan nama kegiatan" maxlength="100" required />
+
+					<input
+						class="input-form"
+						type="text"
+						id="nama_kegiatan"
+						name="nama_kegiatan"
+						placeholder="Masukkan nama kegiatan"
+						maxlength="100"
+						required />
 				</div>
 
 				<div class="form-group">
 					<label for="kategori_kegiatan">Kategori Kegiatan</label><br />
+
 					<select class="input-form" id="kategori_kegiatan" name="kategori_kegiatan" required>
 						<option value="">-- Pilih Kategori --</option>
 						<option value="Akademik">Akademik</option>
@@ -223,25 +225,37 @@ switch ($programStudi) {
 
 				<div class="form-group">
 					<label for="tanggal_pelaksanaan">Tanggal Pelaksanaan</label><br />
+
 					<input class="input-form" type="date" id="tanggal_pelaksanaan" name="tanggal_pelaksanaan" required />
 				</div>
 
 				<div class="form-group">
 					<label for="lokasi_kegiatan">Lokasi Kegiatan</label><br />
-					<input class="input-form" type="text" id="lokasi_kegiatan" name="lokasi_kegiatan"
-						placeholder="Masukkan lokasi kegiatan" maxlength="100" required />
+
+					<input
+						class="input-form"
+						type="text"
+						id="lokasi_kegiatan"
+						name="lokasi_kegiatan"
+						placeholder="Masukkan lokasi kegiatan"
+						maxlength="100"
+						required />
 				</div>
 
 				<div class="form-group">
 					<label for="deskripsi_kegiatan">Deskripsi Kegiatan</label><br />
-					<textarea class="input-form" id="deskripsi_kegiatan" name="deskripsi_kegiatan"
-						maxlength="300" placeholder="Tulis deskripsi kegiatan" required></textarea>
+
+					<textarea
+						class="input-form"
+						id="deskripsi_kegiatan"
+						name="deskripsi_kegiatan"
+						maxlength="300"
+						placeholder="Tulis deskripsi kegiatan"
+						required></textarea>
 				</div>
-				
-				<div class="form-group">
-    <button type="submit" name="kirim_rencana">Kirim</button>
-    <button type="reset">Batal</button>
-</div>
+
+				<button type="submit" name="kirim_rencana">Kirim</button>
+				<button type="reset">Batal</button>
 			</form>
 
 			<?php $rencana = $_SESSION["rencana"] ?? null; ?>
