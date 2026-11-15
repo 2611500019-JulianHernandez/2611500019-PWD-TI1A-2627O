@@ -395,7 +395,7 @@ switch ($programStudi) {
 						if ($kunci === "pesan") {
 							$hasil = nl2br($hasil);
 						}
-						echo "<p><strong>" . $label . ":</strong> " . $hasil . "</p>";
+						echo "<p>" . tebal($label . ":") . " " . $hasil . "</p>";
 					}
 					?>
 				</article>
