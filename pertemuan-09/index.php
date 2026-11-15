@@ -26,21 +26,23 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 	$minat = $_POST["minat"] ?? [];
 	$prodi = trim((string) ($_POST["prodi"] ?? ""));
 	$pesan = trim((string) ($_POST["pesan"] ?? ""));
-	
+
 	// Checkbox dapat mengirimkan lebih dari satu nilai.
 	if (!is_array($minat)) {
 		$minat = [];
 	}
 
-	// Menyimpan setiap nilai formulir ke dalam session secara terpisah.
-	$_SESSION["nama"] = $nama;
-	$_SESSION["email"] = $email;
-	$_SESSION["semester"] = $semesterForm;
-	$_SESSION["tanggal"] = $tanggal;
-	$_SESSION["jenis_pesan"] = $jenisPesan;
-	$_SESSION["minat"] = $minat;
-	$_SESSION["prodi"] = $prodi;
-	$_SESSION["pesan"] = $pesan;
+	// Menyimpan seluruh nilai formulir ke dalam satu session array asosiatif.
+	$_SESSION["form_data"] = [
+		"nama" => $nama,
+		"email" => $email,
+		"semester" => $semesterForm,
+		"tanggal" => $tanggal,
+		"jenis_pesan" => $jenisPesan,
+		"minat" => $minat,
+		"prodi" => $prodi,
+		"pesan" => $pesan
+	];
 
 	// PRG: mencegah pengiriman POST berulang ketika halaman dimuat ulang.
 	header("Location: index.php#contact");
@@ -259,11 +261,23 @@ switch ($programStudi) {
 			<?php if ($rencana): ?>
 				<article id="hasilRencana" class="submission-result" aria-live="polite">
 					<h3>Data Rencana Kegiatan yang Dikirim</h3>
-					<p><strong>Nama Kegiatan:</strong> <?= htmlspecialchars($rencana["nama"], ENT_QUOTES, "UTF-8") ?></p>
-					<p><strong>Kategori Kegiatan:</strong> <?= htmlspecialchars($rencana["kategori"], ENT_QUOTES, "UTF-8") ?></p>
-					<p><strong>Tanggal Pelaksanaan:</strong> <?= htmlspecialchars($rencana["tanggal"], ENT_QUOTES, "UTF-8") ?></p>
-					<p><strong>Lokasi Kegiatan:</strong> <?= htmlspecialchars($rencana["lokasi"], ENT_QUOTES, "UTF-8") ?></p>
-					<p><strong>Deskripsi Kegiatan:</strong> <?= nl2br(htmlspecialchars($rencana["deskripsi"], ENT_QUOTES, "UTF-8")) ?></p>
+					<?php
+					$labelRencana = [
+						"nama" => "Nama Kegiatan",
+						"kategori" => "Kategori Kegiatan",
+						"tanggal" => "Tanggal Pelaksanaan",
+						"lokasi" => "Lokasi Kegiatan",
+						"deskripsi" => "Deskripsi Kegiatan"
+					];
+
+					foreach ($labelRencana as $kunci => $label) {
+						$hasil = bersihkan($rencana[$kunci] ?? "");
+						if ($kunci === "deskripsi") {
+							$hasil = nl2br($hasil);
+						}
+						echo "<p><strong>" . $label . ":</strong> " . $hasil . "</p>";
+					}
+					?>
 				</article>
 			<?php endif; ?>
 		</section>
@@ -356,19 +370,34 @@ switch ($programStudi) {
 				<p class="form-feedback" data-form-feedback aria-live="polite"></p>
 			</form>
 
-			<?php if (isset($_SESSION["nama"])): ?>
+			<?php if (isset($_SESSION["form_data"])): ?>
 				<article id="hasilKontak" class="submission-result" aria-live="polite">
 					<h3>Data Formulir yang Dikirim</h3>
-					<p><strong>Nama Lengkap:</strong> <?= htmlspecialchars($_SESSION["nama"] ?? "", ENT_QUOTES, "UTF-8") ?></p>
-					<p><strong>Email:</strong> <?= htmlspecialchars($_SESSION["email"] ?? "", ENT_QUOTES, "UTF-8") ?></p>
-					<p><strong>Semester:</strong> <?= htmlspecialchars($_SESSION["semester"] ?? "", ENT_QUOTES, "UTF-8") ?></p>
-					<p><strong>Tanggal Kunjungan:</strong> <?= htmlspecialchars($_SESSION["tanggal"] ?? "", ENT_QUOTES, "UTF-8") ?></p>
-					<p><strong>Jenis Pesan:</strong> <?= htmlspecialchars($_SESSION["jenis_pesan"] ?? "", ENT_QUOTES, "UTF-8") ?></p>
-					<p><strong>Topik yang Diminati:</strong>
-						<?= htmlspecialchars(implode(", ", $_SESSION["minat"] ?? []), ENT_QUOTES, "UTF-8") ?>
-					</p>
-					<p><strong>Program Studi:</strong> <?= htmlspecialchars($_SESSION["prodi"] ?? "", ENT_QUOTES, "UTF-8") ?></p>
-					<p><strong>Pesan:</strong> <?= nl2br(htmlspecialchars($_SESSION["pesan"] ?? "", ENT_QUOTES, "UTF-8")) ?></p>
+					<?php
+					$labelForm = [
+						"nama" => "Nama Lengkap",
+						"email" => "Email",
+						"semester" => "Semester",
+						"tanggal" => "Tanggal Kunjungan",
+						"jenis_pesan" => "Jenis Pesan",
+						"minat" => "Topik yang Diminati",
+						"prodi" => "Program Studi",
+						"pesan" => "Pesan"
+					];
+
+					foreach ($labelForm as $kunci => $label) {
+						$nilai = $_SESSION["form_data"][$kunci] ?? "";
+						if (is_array($nilai)) {
+							$nilai = implode(", ", $nilai);
+						}
+
+						$hasil = bersihkan($nilai);
+						if ($kunci === "pesan") {
+							$hasil = nl2br($hasil);
+						}
+						echo "<p><strong>" . $label . ":</strong> " . $hasil . "</p>";
+					}
+					?>
 				</article>
 			<?php endif; ?>
 		</section>
