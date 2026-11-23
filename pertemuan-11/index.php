@@ -6,6 +6,11 @@ require_once("koneksi.php"); # P11
 $sql = "SELECT * FROM tbl_kontak_2611500019";
 $hasil = mysqli_query($koneksi, $sql);
 
+// P11: Memeriksa keberhasilan kueri SELECT.
+if (!$hasil) {
+die("Kueri SELECT gagal dijalankan.");
+}
+
 $daftarKategori = ["Akademik", "Organisasi", "Lomba", "Pengabdian"];
 $jumlahKategori = count($daftarKategori);
 
