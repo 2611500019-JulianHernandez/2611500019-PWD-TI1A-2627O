@@ -5,4 +5,8 @@ Pertemuan 11
 3. memeriksa kesiapan basis data dan tabel kontak P11
 4. membuat berkas koneksi PHP- MySQL P11
 5. menentukan parameter koneksi basis data P11
-6. 
+6. mengatur pelaporan kesalahan MySQLi P11
+7. mengimplementasikan koneksi PHP- MySQL menggunakan MySQLi
+8. menguji koneksi dari PHP ke MySQL dengan file sementara Bernama uji_koneksi.php
+9. menguji penanganan kegagalan koneksi PHP- MySQL
+10. 
