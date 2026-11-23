@@ -2,6 +2,9 @@
 require_once("fungsi.php");
 require_once("koneksi.php"); # P11
 
+// P11: Mengambil data kontak dari basis data menggunakan operasi READ.
+$sql = "SELECT * FROM tbl_kontak_2611500019";
+
 $daftarKategori = ["Akademik", "Organisasi", "Lomba", "Pengabdian"];
 $jumlahKategori = count($daftarKategori);
 

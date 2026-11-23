@@ -11,3 +11,5 @@ Pertemuan 11
 9. menguji penanganan kegagalan koneksi PHP- MySQL
 10. mengintegrasikan berkas koneksi pada index P11
 11. memeriksa alur ketersediaan koneksi pada index P11
+12. menguji integrasi koneksi PHP- MySQL pada index P11
+13. menentukan kueri SELECT data kontak
