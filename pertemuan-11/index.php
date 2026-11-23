@@ -11,6 +11,12 @@ if (!$hasil) {
 die("Kueri SELECT gagal dijalankan.");
 }
 
+// P11: Mengambil hasil kueri sebagai larik asosiatif.
+$dataKontak = [];
+while ($baris = mysqli_fetch_assoc($hasil)) {
+$dataKontak[] = $baris;
+}
+
 $daftarKategori = ["Akademik", "Organisasi", "Lomba", "Pengabdian"];
 $jumlahKategori = count($daftarKategori);
 
