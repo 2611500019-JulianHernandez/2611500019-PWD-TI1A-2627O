@@ -1,4 +1,7 @@
 <?php
+#dimatikan pada P11
+#session_start();
+
 require_once("fungsi.php");
 require_once("koneksi.php"); # P11
 
@@ -8,19 +11,19 @@ $hasil = mysqli_query($koneksi, $sql);
 
 // P11: Memeriksa keberhasilan kueri SELECT.
 if (!$hasil) {
-die("Kueri SELECT gagal dijalankan.");
+	die("Kueri SELECT gagal dijalankan.");
 }
 
 // P11: Mengambil hasil kueri sebagai larik asosiatif.
 $dataKontak = [];
 while ($baris = mysqli_fetch_assoc($hasil)) {
-$dataKontak[] = $baris;
+	$dataKontak[] = $baris;
 }
 
 // P11: Pengujian sementara hasil pengambilan data.
-/*echo "<pre>";
+/* echo "<pre>";
 var_dump($dataKontak);
-echo "</pre>";*/
+echo "</pre>"; */
 
 $daftarKategori = ["Akademik", "Organisasi", "Lomba", "Pengabdian"];
 $jumlahKategori = count($daftarKategori);
@@ -72,7 +75,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 	exit;
 }
 
-// Mengamankan data sebelum ditampilkan kembali ke halaman HTML.
 // P6: PHP dasar dan pemrograman sisi peladen
 // Bagian 1: Variabel dan konstanta
 $nim = "2611500019";
@@ -150,8 +152,9 @@ switch ($programStudi) {
     <main>
         <section id="home">
             <h2>Selamat Datang</h2>
-            <p>Halo, saya <strong><?php echo $namaMahasiswa; ?></strong>. Saya sedang mempelajari matakuliah
-                <strong><?php print NAMA_MATA_KULIAH; ?></strong> pada tahun akademik <?php echo $tahunAkademik; ?>.</p>
+            <p>Halo, saya <?= tebal($namaMahasiswa); ?>. Saya sedang mempelajari matakuliah
+                <strong><?= bersihkan(NAMA_MATA_KULIAH); ?></strong> pada tahun akademik
+                <?= bersihkan($tahunAkademik); ?>.</p>
 
             <img src="img/foto-profil.jpg" alt="Foto profil Nama Mahasiswa" />
         </section>
@@ -161,14 +164,14 @@ switch ($programStudi) {
 
             <article>
                 <h3>Profil Singkat</h3>
-                <p>Program Studi: <?php echo $namaProdi . " (" . $programStudi . ")"; ?></p>
-                <p>Fokus program studi: <?php echo $fokusProgramStudi; ?></p>
-                <p>Status mahasiswa: <?php echo $statusAktif ? "Aktif" : "Tidak aktif"; ?></p>
-                <p>Semester: <?php echo $semester . " (" . $keteranganSemester . ")"; ?></p>
-                <p>Sisa semester hingga batas: <?php echo $sisaSemester; ?></p>
-                <p>Pemeriksaan rentang semester: <?php echo $statusSemester; ?></p>
-                <p>IPK: <?php echo number_format($ipk, 2, ',', '.'); ?></p>
-                <p>Catatan tambahan: <?php echo $catatanTambahan === null ? "Belum ada" : $catatanTambahan; ?></p>
+                <p>Program Studi: <?= bersihkan($namaProdi . " (" . $programStudi . ")"); ?></p>
+                <p>Fokus program studi: <?= bersihkan($fokusProgramStudi); ?></p>
+                <p>Status mahasiswa: <?= $statusAktif ? "Aktif" : "Tidak aktif"; ?></p>
+                <p>Semester: <?= bersihkan($semester . " (" . $keteranganSemester . ")"); ?></p>
+                <p>Sisa semester hingga batas: <?= bersihkan($sisaSemester); ?></p>
+                <p>Pemeriksaan rentang semester: <?= bersihkan($statusSemester); ?></p>
+                <p>IPK: <?= number_format($ipk, 2, ',', '.'); ?></p>
+                <p>Catatan tambahan: <?= $catatanTambahan === null ? "Belum ada" : bersihkan($catatanTambahan); ?></p>
 
                 <h3>Target Belajar (Perulangan for)</h3>
                 <ol>
@@ -277,11 +280,11 @@ switch ($programStudi) {
 					];
 
 					foreach ($labelRencana as $kunci => $label) {
-						$hasil = bersihkan($rencana[$kunci] ?? "");
+						$teksRencana = bersihkan($rencana[$kunci] ?? "");
 						if ($kunci === "deskripsi") {
-							$hasil = nl2br($hasil);
+							$teksRencana = nl2br($teksRencana);
 						}
-						echo "<p><strong>" . $label . ":</strong> " . $hasil . "</p>";
+						echo "<p><strong>" . $label . ":</strong> " . $teksRencana . "</p>";
 					}
 					?>
             </article>
@@ -293,7 +296,7 @@ switch ($programStudi) {
 
             <p>
                 Kunjungi
-                <a target="_blank" href="https://github.com/<?= PROFIL_GITHUB ?>">profil GitHub saya</a>.
+                <a target="_blank" href="https://github.com/<?= bersihkan(PROFIL_GITHUB); ?>">profil GitHub saya</a>.
             </p>
 
             <form id="contactForm" class="js-contact-form" data-validation="contact" action="index.php" method="post"
@@ -366,41 +369,33 @@ switch ($programStudi) {
                 <p class="form-feedback" data-form-feedback aria-live="polite"></p>
             </form>
 
-            <?php if (isset($_SESSION["form_data"])): ?>
             <article id="hasilKontak" class="submission-result" aria-live="polite">
-                <h3>Data Formulir yang Dikirim</h3>
-                <?php
-					$labelForm = [
-						"nama" => "Nama Lengkap",
-						"email" => "Email",
-						"semester" => "Semester",
-						"tanggal" => "Tanggal Kunjungan",
-						"jenis_pesan" => "Jenis Pesan",
-						"minat" => "Topik yang Diminati",
-						"prodi" => "Program Studi",
-						"pesan" => "Pesan"
-					];
-
-					foreach ($labelForm as $kunci => $label) {
-						$nilai = $_SESSION["form_data"][$kunci] ?? "";
-						if (is_array($nilai)) {
-							$nilai = implode(", ", $nilai);
-						}
-
-						$hasil = bersihkan($nilai);
-						if ($kunci === "pesan") {
-							$hasil = nl2br($hasil);
-						}
-						echo "<p>" . tebal($label . ":") . " " . $hasil . "</p>";
-					}
-					?>
+                <h3>Data Kontak dari Basis Data</h3>
+                <?php if (count($dataKontak) > 0): ?>
+                <!-- Perulangan foreach untuk menampilkan data kontak. -->
+                <?php foreach ($dataKontak as $data): ?>
+                <section>
+                    <!-- Data kontak ditampilkan di sini. -->
+                    <p><strong>ID:</strong> <?= bersihkan($data["id"]); ?></p>
+                    <p><strong>Nama:</strong> <?= bersihkan($data["nama"]); ?></p>
+                    <p><strong>Email:</strong> <?= bersihkan($data["email"]); ?></p>
+                    <p><strong>Semester:</strong> <?= bersihkan($data["semester"]); ?></p>
+                    <p><strong>Tanggal Kunjungan:</strong> <?= bersihkan($data["tanggal"]); ?></p>
+                    <p><strong>Jenis Pesan:</strong> <?= bersihkan($data["jenis_pesan"]); ?></p>
+                    <p><strong>Topik yang Diminati:</strong> <?= bersihkan($data["minat"]); ?></p>
+                    <p><strong>Program Studi:</strong> <?= bersihkan($data["prodi"]); ?></p>
+                    <p><strong>Pesan:</strong> <?= nl2br(bersihkan($data["pesan"])); ?></p>
+                </section>
+                <?php endforeach; ?>
+                <?php else: ?>
+                <p>Belum ada data kontak yang tersimpan.</p>
+                <?php endif; ?>
             </article>
-            <?php endif; ?>
         </section>
     </main>
 
     <footer>
-        <p>&copy; <?= date("Y") ?> <?php echo $namaMahasiswa; ?> [<?= $nim ?>]</p>
+        <p>&copy; <?= date("Y"); ?> <?= bersihkan($namaMahasiswa); ?> [<?= bersihkan($nim); ?>]</p>
     </footer>
     <script src="script.js"></script>
 </body>
